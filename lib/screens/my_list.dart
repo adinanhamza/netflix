@@ -1,7 +1,8 @@
 // screens/my_list.dart
 import 'package:flutter/material.dart';
+import 'package:netflix_clone/widgets/movies_card.dart';
 import '../widgets/app_bar.dart';
-import '../widgets/movie_card.dart';
+
 
 class MyListScreen extends StatelessWidget {
   @override

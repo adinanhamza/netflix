@@ -1,5 +1,6 @@
 // screens/movie_detail.dart
 import 'package:flutter/material.dart';
+import 'package:netflix_clone/screens/home_screen.dart';
 import '../widgets/app_bar.dart';
 
 class MovieDetailScreen extends StatelessWidget {
@@ -46,8 +47,8 @@ class MovieDetailScreen extends StatelessWidget {
                       ),
                       ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                          onPrimary: Colors.black,
+                          // primary: Colors.white,
+                          // onPrimary: Colors.black,
                         ),
                         onPressed: () {},
                         icon: Icon(Icons.play_arrow),

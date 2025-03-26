@@ -7,10 +7,10 @@ import 'package:netflix_clone/screens/search_screen.dart';
 import 'screens/home_screen.dart';
 
 void main() {
-  runApp(NetflixClone());
+  runApp(MyApp());
 }
 
-class NetflixClone extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

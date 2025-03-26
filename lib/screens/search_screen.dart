@@ -1,7 +1,8 @@
 // screens/search_screen.dart
 import 'package:flutter/material.dart';
-import '../widgets/app_bar.dart';
-import '../widgets/movie_card.dart';
+import 'package:netflix_clone/widgets/movies_card.dart';
+
+
 
 class SearchScreen extends StatefulWidget {
   @override
