@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'package:netflix_clone/constants/apiconstants.dart';
 
 class Movieservice {
@@ -9,5 +10,9 @@ class Movieservice {
   final searchMovie = Apiconstants.searchMovie();
 
 
-  Future <List<>>
+  
+=======
+class Movieservice {
+  
+>>>>>>> d72e3fc4e4266a8384cf248828c420cb08ce13ec
 }
