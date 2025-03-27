@@ -1,7 +1,11 @@
+<<<<<<< HEAD
 
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+=======
+<<<<<<< HEAD
+>>>>>>> df99444ce77b907a24760ca8ef9394d45c17c74d
 import 'package:netflix_clone/constants/apiconstants.dart';
 import 'package:netflix_clone/models/content_models.dart';
 
@@ -15,6 +19,7 @@ class Movieservice {
 
   Dio dio = Dio();
 
+<<<<<<< HEAD
 Future<List<Moviemodel>>  popularmovie()async{
 try {
   final response = await dio.get(popularmovies);
@@ -30,4 +35,11 @@ try {
 return [];
 }
   
+=======
+  
+=======
+class Movieservice {
+  
+>>>>>>> d72e3fc4e4266a8384cf248828c420cb08ce13ec
+>>>>>>> df99444ce77b907a24760ca8ef9394d45c17c74d
 }
