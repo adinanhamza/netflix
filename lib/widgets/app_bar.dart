@@ -10,10 +10,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
-      title: Image.asset(
-        'assets/netflix_logo.png',
-        height: 40,
-      ),
+      // title: Image.asset(
+      //   'assets/netflix_logo.png'
+      //   ,
+      //   height: 40,
+      // ),
+      title: Icon(Icons.abc),
       actions: [
         IconButton(
           icon: Icon(Icons.search, color: Colors.white),

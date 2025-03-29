@@ -1,8 +1,9 @@
 // screens/home_screen.dart
 import 'package:flutter/material.dart';
 import 'package:netflix_clone/widgets/movies_card.dart';
+import 'package:netflix_clone/widgets/preview_card%20copy.dart';
 import '../widgets/app_bar.dart';
-import '../widgets/preview_card.dart';
+
 
 import '../widgets/bottom_nav.dart';
 
