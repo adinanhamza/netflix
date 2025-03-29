@@ -2,6 +2,7 @@ class Apiconstants{
 
 static const  String baseurl = 'https://api.themoviedb.org/3';
 static const String apikey =  'd26a8dd97ecb04414d11287cd30cca91';
+static const String imageUrl = 'https://image.tmdb.org/t/p/w500/';
 
 
 

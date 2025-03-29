@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            PreviewCard(),
+            // PreviewCard(),
             SizedBox(height: 10),
             MovieRow(title: "Popular on Netflix", isLarge: true),
             MovieRow(title: "Trending Now"),
