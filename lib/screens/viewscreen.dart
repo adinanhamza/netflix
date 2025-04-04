@@ -1,8 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:netflix/constants/url.dart';
-import 'package:netflix/model/netflixmodel.dart';
+import 'package:netflix_clone/constants/apiconstants.dart';
+import 'package:netflix_clone/models/content_models.dart';
+
 
 // ignore: must_be_immutable
 class Viewscreen extends StatelessWidget {
@@ -29,7 +30,7 @@ class Viewscreen extends StatelessWidget {
               height: 250,
               child: CachedNetworkImage(
                 imageUrl:
-                    "${Urlconstants.imageUrl}${netflixmodel!.backdroppath.toString()}",
+                    "${Apiconstants.imageUrl}${netflixmodel!.backdroppath.toString()}",
                 fit: BoxFit.fill,
                 placeholder: (context, url) => Center(
                   child: CircularProgressIndicator(),
@@ -106,7 +107,7 @@ class Viewscreen extends StatelessWidget {
                     height: 250,
                     child: CachedNetworkImage(
                       imageUrl:
-                          "${Urlconstants.imageUrl}${netflixmodel!.backdroppath}",
+                          "${Apiconstants.imageUrl}${netflixmodel!.backdroppath}",
                       fit: BoxFit.fill,
                       placeholder: (context, url) => Center(
                         child: CircularProgressIndicator(),

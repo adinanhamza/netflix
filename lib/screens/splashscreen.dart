@@ -1,8 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:netflix/view/bottombar/bottombar.dart';
+import 'package:netflix_clone/screens/bottomnav.dart';
 
 class Splashscreen extends StatefulWidget {
   const Splashscreen({super.key});
@@ -28,13 +27,14 @@ class _SplashscreenState extends State<Splashscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: Colors.red,
       body: Container(
         height: double.infinity,
         width: double.infinity,
         color: Colors.black,
         child: Center(
-          child: Lottie.asset('assets/Animation - 1734070417090 (1).json',
-              repeat: true,)
+          // child: Lottie.asset('assets/Animation - 1734070417090 (1).json',
+              // repeat: true,)
         ),
       ),
     );

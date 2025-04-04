@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:netflix/constants/textconstants.dart';
-import 'package:netflix/controller/provider.dart';
-import 'package:netflix/view/homescreen/homewidget.dart';
+import 'package:netflix_clone/constants/textconstants.dart';
+import 'package:netflix_clone/controller/provider.dart';
+import 'package:netflix_clone/screens/widgets/homewidget.dart';
 import 'package:provider/provider.dart';
 
 class Homescreen extends StatefulWidget {

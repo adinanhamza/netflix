@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:netflix/view/viewscreen/viewscreen.dart';
+import 'package:netflix_clone/screens/viewscreen.dart';
+
 
 Widget topRatedwid(List movieList) {
   return Padding(

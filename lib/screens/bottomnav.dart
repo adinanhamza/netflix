@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:netflix/controller/bottomProvider.dart';
-import 'package:netflix/view/downloads/downlaods.dart';
-import 'package:netflix/view/menu/menu.dart';
-import 'package:netflix/view/searchpage/searchpage.dart';
-
-import 'package:netflix/view/homescreen/homescreen.dart';
+import 'package:netflix_clone/controller/bottomprovider.dart';
+import 'package:netflix_clone/screens/downloads.dart';
+import 'package:netflix_clone/screens/home_screen.dart';
+import 'package:netflix_clone/screens/menu.dart';
+import 'package:netflix_clone/screens/search_screen.dart';
 import 'package:provider/provider.dart';
 
 class Bottombar extends StatelessWidget {

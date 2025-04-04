@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:netflix_clone/constants/apiconstants.dart';
+import 'package:netflix_clone/models/content_models.dart';
 
 
 class NetflixService {
@@ -30,7 +31,7 @@ class NetflixService {
   }
 
   Future<List<Netflixmodel>> topRated() async {
-    final topRated = Urlconstants.topRated.toString();
+    final topRated = Apiconstants.topRated.toString();
 
     try {
       final response = await dio.get(topRated);
@@ -52,7 +53,7 @@ class NetflixService {
   }
 
   Future<List<Netflixmodel>> upcoming() async {
-    final upcoming = Urlconstants.upcoming.toString();
+    final upcoming = Apiconstants.upcoming.toString();
 
     try {
       final response = await dio.get(upcoming);
@@ -73,7 +74,7 @@ class NetflixService {
   }
 
   Future<List<Netflixmodel>> tvshows() async {
-    final tvShows = Urlconstants.tvshows.toString();
+    final tvShows = Apiconstants.tvshows.toString();
 
     try {
       final response = await dio.get(tvShows);

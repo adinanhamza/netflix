@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:netflix/model/netflixmodel.dart';
-import 'package:netflix/service/service.dart';
+import 'package:netflix_clone/models/content_models.dart';
 import 'package:netflix_clone/services/movieservice.dart';
 
 class NetflixProvider extends ChangeNotifier {
