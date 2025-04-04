@@ -1,278 +1,160 @@
-import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:netflix_clone/controller/provider.dart';
-import 'package:netflix_clone/screens/bottomnav.dart';
-import 'package:netflix_clone/screens/movie_details.dart';
-import 'package:netflix_clone/screens/movies.dart';
-import 'package:netflix_clone/screens/tvshows.dart';
-import 'package:netflix_clone/screens/widgets/moviecategory.dart';
+import 'package:gap/gap.dart';
+import 'package:netflix/constants/textconstants.dart';
+import 'package:netflix/controller/provider.dart';
+import 'package:netflix/view/homescreen/homewidget.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class Homescreen extends StatefulWidget {
+  const Homescreen({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<Homescreen> createState() => _HomescreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomescreenState extends State<Homescreen> {
   @override
   void initState() {
-   
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_){
-       Provider.of<movieProvider>(context, listen: false).trending();
-    Provider.of<movieProvider>(context, listen: false).popular();
-    Provider.of<movieProvider>(context, listen: false).upcoming();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final provider = Provider.of<NetflixProvider>(context, listen: false);
+      provider.getAllData(context);
+      provider.topRatedMovies(context);
+      provider.upcomingMovies(context);
+      provider.tvshows(context);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<movieProvider>(builder: (context, value, child) {
-      if (value.isLodding == false) {
-        log("is lodding");
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      }
-      return Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          toolbarHeight: 75,
-          backgroundColor: Colors.transparent,
-          flexibleSpace: Column(
-            children: [
-              const SizedBox(
-                height: 50,
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      backgroundColor: Colors.black,
+      body: SingleChildScrollView(
+        child: SafeArea(
+            child: Consumer<NetflixProvider>(builder: (context, value, child) {
+          final listOfdata = value.listOfData;
+          if (value.errorMessage != null) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(value.errorMessage!),
+                ),
+              );
+            });
+          }
+          if (listOfdata.isEmpty) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: Colors.white,
               ),
-              Row(
+            );
+          }
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
                 children: [
-                  Image.asset(                
-                    'assests/WhatsApp_Image_2024-12-13_at_18.47.11-removebg-preview.png',
-                    width: 70,
+                  CachedNetworkImage(
+                    height: 500,
+                    width: double.infinity,
+                    fit: BoxFit.fitWidth,
+                    imageUrl: '${value.imagePath}${listOfdata[13].posterpath}',
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 9.0),
-                    child: SizedBox(
-                      width: 330,
-                      height: 60,
-                      child: Consumer<movieProvider>(
-                        builder: (context, serch, child) => TextField(
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          controller: serch.serchCtrl,
-                          onSubmitted: (value) {
-                            serch.serchMovie();
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => BottomNAvigation(
-                                          intialState: 1,
-                                        )));
-                          },
-                          decoration: InputDecoration(
-                            fillColor: Colors.white.withOpacity(0.2),
-                            filled: true,
-                            suffixIcon: const Icon(Icons.search),
-                            hintText: "Search",
-                            hintStyle: style(),
-                            border: InputBorder.none,
+                  Positioned(
+                    bottom: 0,
+                    left: 90,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(
+                          children: [
+                            Icon(
+                              Icons.check,
+                              size: 34,
+                              color: Colors.white,
+                            ),
+                            Text(
+                              'My List',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
+                        Gap(20),
+                        Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10)),
+                          height: 40,
+                          width: 100,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.play_arrow,
+                                color: Colors.black,
+                              ),
+                              Gap(5),
+                              Text(
+                                'Play',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
+                              )
+                            ],
                           ),
                         ),
-                      ),
+                        Gap(20),
+                        Column(
+                          children: [
+                            Icon(
+                              Icons.info,
+                              size: 34,
+                              color: Colors.white,
+                            ),
+                            Text(
+                              'Info',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        )
+                      ],
                     ),
                   ),
                 ],
               ),
-            ],
-          ),
-        ),
-        backgroundColor: Colors.black,
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Consumer<movieProvider>(
-                builder: (context, movie, _) {
-                  const imgUrl = 'https://image.tmdb.org/t/p/w500/';
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Moviedetails(
-                                  type: movie.TrendingMovie.first.type,
-                                  title: movie.TrendingMovie.first.title,
-                                  image_path:
-                                      movie.TrendingMovie.first.backdroppath,
-                                  ogrinalName:
-                                      movie.TrendingMovie.first.orginal,
-                                  overview:
-                                      movie.TrendingMovie.first.overview)));
-                    },
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 650,
-                      child: Stack(
-                        alignment: AlignmentDirectional.bottomCenter,
-                        children: [
-                          SizedBox(
-                            width: double.infinity,
-                            child: CachedNetworkImage(
-                                placeholder: (context, url) => const Center(
-                                      child: CircularProgressIndicator(),
-                                    ),
-                                imageUrl:
-                                    "$imgUrl${movie.TrendingMovie.first.posterpath}"),
-                          ),
-                          Positioned(
-                            top: 125,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => tvShows(
-                                                    title: "TV Shows",
-                                                  )));
-                                    },
-                                    child:
-                                        Text("Tv Shows", style: appBarStyle())),
-                                const SizedBox(
-                                  width: 150,
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => MoviePage(
-                                                  title: 'Movies',
-                                                )));
-                                  },
-                                  child: Text(
-                                    "Movies",
-                                    style: appBarStyle(),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Positioned(
-                              bottom: 100,
-                              child: Text("${movie.TrendingMovie.first.title}",
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 35))),
-                          Positioned(
-                            bottom: 20,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Column(
-                                  children: [
-                                    const Icon(
-                                      Icons.check,
-                                      size: 40,
-                                    ),
-                                    Text(
-                                      "My List",
-                                      style: style(),
-                                    )
-                                  ],
-                                ),
-                                const SizedBox(
-                                  width: 50,
-                                ),
-                                Container(
-                                  width: 120,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    color: const Color.fromARGB(
-                                        255, 240, 238, 238),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: const Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.play_arrow,
-                                        color: Colors.black,
-                                      ),
-                                      Text(
-                                        "Play",
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 50,
-                                ),
-                                Column(
-                                  children: [
-                                    const Icon(
-                                      Icons.info_outline,
-                                      size: 30,
-                                    ),
-                                    Text(
-                                      "info",
-                                      style: style(),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
+              Gap(10),
               Padding(
-                padding: const EdgeInsets.only(top: 10, left: 10),
+                padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "Trending Now",
-                  style: appBarStyle(),
+                  Textconstants.toprated,
+                  style: TextStyle(color: Colors.white, fontSize: 30),
                 ),
               ),
-              Consumer<movieProvider>(
-                builder: (context, value, child) => Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    moviecatogary(movieList: value.TrendingMovie),
-                    Text(
-                      "Popular Movies",
-                      style: appBarStyle(),
-                    ),
-                    moviecatogary(movieList: value.popularMovie),
-                    Text(
-                      "Top Rated Movies",
-                      style: appBarStyle(),
-                    ),
-                    moviecatogary(movieList: value.topRated),
-                  ],
-                ),
+              topRatedwid(value.topRated),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(Textconstants.upcoming,
+                    style: TextStyle(color: Colors.white, fontSize: 30)),
               ),
+              topRatedwid(value.upcoming),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(Textconstants.tvShow,
+                    style: TextStyle(color: Colors.white, fontSize: 30)),
+              ),
+              topRatedwid(value.tvShow),
             ],
-          ),
-        ),
-      );
-    });
+          );
+        })),
+      ),
+    );
   }
 }

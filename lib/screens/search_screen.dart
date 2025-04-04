@@ -1,98 +1,96 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:netflix_clone/controller/provider.dart';
-import 'package:netflix_clone/screens/bottomnav.dart';
-import 'package:netflix_clone/screens/widgets/moviecategory.dart';
+
+import 'package:netflix/controller/provider.dart';
 import 'package:provider/provider.dart';
 
-class Searchpage extends StatelessWidget {
-  String? value;
-  Searchpage({super.key, this.value});
+class Searchpage extends StatefulWidget {
+  const Searchpage({super.key});
+
+  @override
+  State<Searchpage> createState() => _SearchpageState();
+}
+
+class _SearchpageState extends State<Searchpage> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<NetflixProvider>(context, listen: false)
+          .searchMovies(context);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    bool isLodding =
-        Provider.of<movieProvider>(context, listen: false).isLodding;
-    if (isLodding == false) {
-      Center(
-        child: CircularProgressIndicator(),
-      );
-    }
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 70,
-          automaticallyImplyLeading: false,
-          flexibleSpace: Row(
+    return Scaffold(
+      appBar: AppBar(
+        title: Consumer<NetflixProvider>(
+          builder: (context, values, child) => Column(
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: GestureDetector(
-                    onTap: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  BottomNAvigation(intialState: 0)));
-                    },
-                    child: Icon(Icons.arrow_back_ios)),
-              ),
-              Expanded(
-                child: Consumer<movieProvider>(
-                  builder: (context, serch, child) => TextField(
-                    onSubmitted: (value) {
-                      serch.serchMovie();
-                    },
-                    controller: serch.serchCtrl,
-                    decoration: InputDecoration(
-                        hintText: 'search',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        )),
+                child: TextField(
+                  controller: values.searchtext,
+                  decoration: InputDecoration(
+                    fillColor: Colors.white.withValues(alpha: 0.1),
+                    filled: true,
+                    hintText: 'Search',
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
+                  onSubmitted: (value) {
+                    values.searchMovies(context);
+                  },
                 ),
-              ),
+              )
             ],
           ),
         ),
-        body: Column(
-          children: [
-            Expanded(
-              child: Consumer<movieProvider>(
-                builder: (context, value, child) => ListView.builder(
-                    itemCount: value.serchList.length,
-                    itemBuilder: (context, index) {
-                      final data = value.serchList[index];
-                      return Container(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            CachedNetworkImage(
-                              placeholder: (context, url) {
-                                return Center(
-                                  child: CircularProgressIndicator(
-                                    color: Colors.white,
-                                  ),
-                                );
-                              },
-                              errorWidget: (context, url, error) {
-                                return Icon(Icons.error_outline);
-                              },
-                              imageUrl:
-                                  'https://image.tmdb.org/t/p/w500/${data.posterpath}',
-                              width: 100,
-                            ),
-                            Text(
-                              data.title ?? '',
-                              style: style(),
-                            ),
-                          ],
-                        ),
-                      );
-                    }),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: Consumer<NetflixProvider>(
+              builder: (context, values, child) => ListView.builder(
+                itemCount: values.search.length,
+                itemBuilder: (context, index) {
+                  final data = values.search[index];
+
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      child: Row(
+                        children: [
+                          CachedNetworkImage(
+                            placeholder: (context, url) {
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            },
+                            errorWidget: (context, url, error) {
+                              return Icon(Icons.error_outline);
+                            },
+                            imageUrl:
+                                'https://image.tmdb.org/t/p/w400/${data.posterpath}',
+                            width: 100,
+                          ),
+                          Text(
+                            data.title.toString(),
+                            maxLines: 4,
+                            overflow: TextOverflow.ellipsis,
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                },
               ),
-            )
-          ],
-        ),
+            ),
+          ),
+        ],
       ),
     );
   }

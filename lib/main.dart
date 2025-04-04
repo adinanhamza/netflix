@@ -1,14 +1,13 @@
-
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:netflix_clone/controller/bottomprovider.dart';
-import 'package:netflix_clone/controller/provider.dart';
-import 'package:netflix_clone/screens/splashscreen.dart';
+import 'package:netflix/controller/bottomProvider.dart';
+import 'package:netflix/controller/provider.dart';
+
+import 'package:netflix/view/splashscreen/splashscreen.dart';
 import 'package:provider/provider.dart';
 
-void main(){
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -18,16 +17,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => movieProvider(),),
-        ChangeNotifierProvider(create: (context) => Bottomnavprovider(),),
+        ChangeNotifierProvider(
+          create: (context) => NetflixProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => Bottomprovider(),
+        )
       ],
       child: MaterialApp(
+        theme: ThemeData.dark(),
         debugShowCheckedModeBanner: false,
-        darkTheme: ThemeData.dark(),
-        theme: ThemeData(
-          textTheme: GoogleFonts.poppinsTextTheme()
-        ),
-        home: SplashScreen(),
+        title: 'Netflixee',
+        home: Splashscreen(),
       ),
     );
   }

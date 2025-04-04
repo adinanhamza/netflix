@@ -2,33 +2,41 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:netflix_clone/screens/bottomnav.dart';
+import 'package:netflix/view/bottombar/bottombar.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+class Splashscreen extends StatefulWidget {
+  const Splashscreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<Splashscreen> createState() => _SplashscreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashscreenState extends State<Splashscreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    logPage();
+    Timer(
+        Duration(seconds: 5),
+        () => Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Bottombar(),
+            ),
+            (route) => false));
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: Center(child: Lottie.asset('assests/Animation - 1734070417090.json',repeat: false),),
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        color: Colors.black,
+        child: Center(
+          child: Lottie.asset('assets/Animation - 1734070417090 (1).json',
+              repeat: true,)
+        ),
+      ),
     );
-  }
-  
-  void logPage() {
-    Timer(Duration(seconds: 4), () {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>BottomNAvigation(intialState: 0,)));
-    },);
   }
 }
