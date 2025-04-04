@@ -29,5 +29,102 @@ try {
 }
 return [];
 }
+
+   Future<List<Moviemodel>> tvshow() async {
+    Dio dio = Dio();
+
+    try {
+      final response = await dio.get(tvshows);
+      if (response.statusCode == 200) {
+        log("Request successful: ${response.statusMessage}");
+        final List data = response.data['results'];
+        return data.map((movies)=> Moviemodel.fromjson(movies)).toList();
+      } else {
+        log("Error: ${response.statusCode} - ${response.statusMessage}");
+      }
+    } catch (e) {
+      log("Exception: $e");
+    }
+
+    return [];
+  }
+    Future<List<Moviemodel>> movies() async {
+    Dio dio = Dio();
+
+    try {
+      final response = await dio.get(popularmovies);
+      if (response.statusCode == 200) {
+        log("Request successful: ${response.statusMessage}");
+        final List data = response.data['results'];
+        return data.map((movies)=> Moviemodel.fromjson(movies)).toList();
+      } else {
+        log("Error: ${response.statusCode} - ${response.statusMessage}");
+      }
+    } catch (e) {
+      log("Exception: $e");
+    }
+    return [];
+  }
+
+    Future<List<Moviemodel>> trendingMovie() async {
+    Dio dio = Dio();
+
+    try {
+      final response = await dio.get(trendingmovies);
+      if (response.statusCode == 200) {
+        log("Request successful: ${response.statusMessage}");
+        final List data = response.data['results'];
+        return data.map((movies)=> Moviemodel.fromjson(movies)).toList();
+      } else {
+        log("Error: ${response.statusCode} - ${response.statusMessage}");
+      }
+    } catch (e) {
+      log("Exception: $e");
+    }
+
+    return [];
+  }
+   Future<List<Moviemodel>> upcomingMovie() async {
+     
+    Dio dio = Dio();
+
+    try {
+      final response = await dio.get(topratedmovies);
+      if (response.statusCode == 200) {
+        log("Request successful: ${response.statusMessage}");
+        final List data = response.data['results'];
+        return data.map((movies) => Moviemodel.fromjson(movies)).toList();
+      } else {
+        log("Error: ${response.statusCode} - ${response.statusMessage}");
+      }
+    } catch (e) {
+      log("Exception: $e");
+    }
+
+    return [];
+  }
+
+
+  Future<List<Moviemodel>> searchData({required String search}) async {
+    String url =
+        '$searchMovie$search';
+    Dio dio = Dio();
+
+    try {
+      final response = await dio.get(url);
+      if (response.statusCode == 200) {
+        log("Request successful: ${response.statusMessage}");
+        final List data = response.data['results'];
+        return data.map((movies) => Moviemodel.fromjson(movies)).toList();
+      } else {
+        log("Error: ${response.statusCode} - ${response.statusMessage}");
+      }
+    } catch (e) {
+      log("Exception: $e");
+    }
+
+    return [];
+  }
+
   
 }

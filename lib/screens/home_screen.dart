@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:netflix_clone/controller/provider.dart';
 
 import 'package:provider/provider.dart';
 
@@ -14,7 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    Provider.of<movieProvider>(context, listen: false).trending();
+    Provider.of<Movieprovider>(context, listen: false).trending();
     Provider.of<movieProvider>(context, listen: false).popular();
     Provider.of<movieProvider>(context, listen: false).upcoming();
     super.initState();

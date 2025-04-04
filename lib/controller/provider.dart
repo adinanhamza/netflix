@@ -28,4 +28,16 @@ void getpopular()async{
   notifyListeners();
 }
 
+void tvshows() async {
+    tvList = await Movieservice.tvshows();
+    if (tvList.isNotEmpty) {
+      log("tv get success");
+      isLodding = true;
+    } else {
+      log("error");
+    }
+    notifyListeners();
+  }
+
+
 }
