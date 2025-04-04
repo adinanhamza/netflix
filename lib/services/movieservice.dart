@@ -16,11 +16,14 @@ class Movieservice {
   Dio dio = Dio();
 
 Future<List<Moviemodel>>  popularmovie()async{
+  log('fetchingg ... popular');
 try {
   final response = await dio.get(popularmovies);
-  if(response.data == 200){
-    log('request successfully ${response.statusMessage  }');
-    return (response.data as List).map((movies)=> Moviemodel.fromjson(movies)).toList();
+  if(response.statusCode == 200){
+    log('request successfully popullar${response.statusMessage}');
+  final List data =  response.data['results'];
+  log(data.toString());
+    return data.map((e) => Moviemodel.fromjson(e)).toList();
   }else{
    log('error : ${response.statusCode} - ${response.statusMessage}');
   }

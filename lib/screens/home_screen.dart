@@ -7,7 +7,6 @@ import 'package:netflix_clone/screens/movie_details.dart';
 import 'package:netflix_clone/screens/movies.dart';
 import 'package:netflix_clone/screens/tvshows.dart';
 import 'package:netflix_clone/screens/widgets/moviecategory.dart';
-
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,10 +19,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    Provider.of<movieProvider>(context, listen: false).trending();
+   
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+       Provider.of<movieProvider>(context, listen: false).trending();
     Provider.of<movieProvider>(context, listen: false).popular();
     Provider.of<movieProvider>(context, listen: false).upcoming();
-    super.initState();
+    });
   }
 
   @override
@@ -47,7 +49,7 @@ class _HomePageState extends State<HomePage> {
               ),
               Row(
                 children: [
-                  Image.asset(
+                  Image.asset(                
                     'assests/WhatsApp_Image_2024-12-13_at_18.47.11-removebg-preview.png',
                     width: 70,
                   ),

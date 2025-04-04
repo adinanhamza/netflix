@@ -21,7 +21,7 @@ class movieProvider extends ChangeNotifier {
       log("tv get success");
       isLodding = true;
     } else {
-      log("error");
+      log("tv error");
     }
     notifyListeners();
   }
@@ -32,17 +32,18 @@ class movieProvider extends ChangeNotifier {
       log("movies get success");
       isLodding = true;
     } else {
-      log("error");
+      log("movie error");
     }
     notifyListeners();
   }
 
   void popular() async {
-    popularMovie = await movieServices.popularmovie();
-    if (popularMovie.isNotEmpty) {
+    try {
+      popularMovie = await movieServices.popularmovie();
+
       log("popular get success");
-    } else {
-      log("error");
+    } catch (e) {
+      log(e.toString());
     }
     notifyListeners();
   }
@@ -52,7 +53,7 @@ class movieProvider extends ChangeNotifier {
     if (topRated.isNotEmpty) {
       log("toprated get success");
     } else {
-      log("error");
+      log(" toprated  error");
     }
     notifyListeners();
   }
@@ -63,7 +64,7 @@ class movieProvider extends ChangeNotifier {
       log("trending get success.......");
       isLodding = true;
     } else {
-      log("error");
+      log(" trending error");
       isLodding = false;
     }
     notifyListeners();
