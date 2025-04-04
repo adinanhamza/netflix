@@ -1,35 +1,34 @@
-// main.dart
-import 'package:flutter/material.dart';
-import 'package:netflix_clone/screens/category_screens.dart';
-import 'package:netflix_clone/screens/my_list.dart';
-import 'package:netflix_clone/screens/profile_screens.dart';
-import 'package:netflix_clone/screens/search_screen.dart';
-import 'screens/home_screen.dart';
 
-void main() {
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:netflix_clone/controller/bottomprovider.dart';
+import 'package:netflix_clone/controller/provider.dart';
+import 'package:netflix_clone/screens/splashscreen.dart';
+import 'package:provider/provider.dart';
+
+void main(){
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Netflix Clone',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-        scaffoldBackgroundColor: Colors.black,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => movieProvider(),),
+        ChangeNotifierProvider(create: (context) => Bottomnavprovider(),),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        darkTheme: ThemeData.dark(),
+        theme: ThemeData(
+          textTheme: GoogleFonts.poppinsTextTheme()
+        ),
+        home: SplashScreen(),
       ),
-      home: HomeScreen(),
-      // Add this to main.dart
-routes: {
-  '/home': (context) => HomeScreen(),
-  '/search': (context) => SearchScreen(),
-  '/profiles': (context) => ProfilesScreen(),
-  '/mylist': (context) => MyListScreen(),
-  '/category': (context) => CategoryScreen(categoryName: 'Action'),
-},
     );
   }
 }

@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:movieapp/view/bottomBar.dart';
-import 'package:movieapp/view/widget/movieCatogaryBase.dart';
-import 'package:movieapp/controller/provider.dart';
+import 'package:netflix_clone/controller/provider.dart';
+import 'package:netflix_clone/screens/bottomnav.dart';
+import 'package:netflix_clone/screens/widgets/moviecategory.dart';
 import 'package:provider/provider.dart';
 
 class Searchpage extends StatelessWidget {
