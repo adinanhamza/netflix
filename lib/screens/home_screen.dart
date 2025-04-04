@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    Provider.of<Movieprovider>(context, listen: false).trending();
+    Provider.of<movieProvider>(context, listen: false).trending();
     Provider.of<movieProvider>(context, listen: false).popular();
     Provider.of<movieProvider>(context, listen: false).upcoming();
     super.initState();
@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Movieprovider>(builder: (context, value, child) {
+    return Consumer<movieProvider>(builder: (context, value, child) {
       if (value.isLodding == false) {
         log("is lodding");
         return const Center(
