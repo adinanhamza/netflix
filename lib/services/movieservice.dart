@@ -52,7 +52,7 @@ class NetflixService {
     }
   }
 
-  Future<List<Netflixmodel>> upcoming() async {
+  Future<List<Netflixmodel>> popular() async {
     final upcoming = Apiconstants.upcoming.toString();
 
     try {

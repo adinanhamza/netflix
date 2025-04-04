@@ -7,7 +7,7 @@ class NetflixProvider extends ChangeNotifier {
   NetflixService netflix = NetflixService();
   List<Netflixmodel> listOfData = [];
   List<Netflixmodel> topRated = [];
-  List<Netflixmodel> upcoming = [];
+  List<Netflixmodel> popular = [];
   List<Netflixmodel> tvShow = [];
   List<Netflixmodel> search = [];
   String? errorMessage;
@@ -38,9 +38,9 @@ class NetflixProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> upcomingMovies(BuildContext context) async {
+  Future<void> PopularMovies(BuildContext context) async {
     try {
-      upcoming = await netflix.upcoming();
+      popular = await netflix.popular();
     } catch (e) {
       errorMessages('$e');
     }

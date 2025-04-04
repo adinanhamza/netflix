@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:netflix_clone/screens/viewscreen.dart';
 
 
-Widget topRatedwid(List movieList) {
+Widget CategorySection(List movieList) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: SizedBox(
-        height: 200,
+        height: 200,  
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: movieList.length,

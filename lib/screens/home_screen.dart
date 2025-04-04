@@ -21,7 +21,7 @@ class _HomescreenState extends State<Homescreen> {
       final provider = Provider.of<NetflixProvider>(context, listen: false);
       provider.getAllData(context);
       provider.topRatedMovies(context);
-      provider.upcomingMovies(context);
+      provider.PopularMovies(context);
       provider.tvshows(context);
     });
   }
@@ -138,19 +138,19 @@ class _HomescreenState extends State<Homescreen> {
                   style: TextStyle(color: Colors.white, fontSize: 30),
                 ),
               ),
-              topRatedwid(value.topRated),
+              CategorySection(value.topRated),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(Textconstants.upcoming,
+                child: Text(Textconstants.popularmovies,
                     style: TextStyle(color: Colors.white, fontSize: 30)),
               ),
-              topRatedwid(value.upcoming),
+              CategorySection(value.popular),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(Textconstants.tvShow,
                     style: TextStyle(color: Colors.white, fontSize: 30)),
               ),
-              topRatedwid(value.tvShow),
+              CategorySection(value.tvShow),
             ],
           );
         })),

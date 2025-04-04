@@ -33,8 +33,7 @@ class _SplashscreenState extends State<Splashscreen> {
         width: double.infinity,
         color: Colors.black,
         child: Center(
-          // child: Lottie.asset('assets/Animation - 1734070417090 (1).json',
-              // repeat: true,)
+           child: Image.asset('assets/netflix name.png')
         ),
       ),
     );

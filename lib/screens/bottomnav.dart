@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 class Bottombar extends StatelessWidget {
   Bottombar({super.key});
 
-  final pages = [Homescreen(), Searchpage(), Downlaods(), Menu()];
+  final pages = [Homescreen(), Searchpage(), Downlaods(), ProfilePage()];
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class Bottombar extends StatelessWidget {
                   icon: Icon(Icons.search), label: 'Search'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.download), label: 'Downloads'),
-              BottomNavigationBarItem(icon: Icon(Icons.menu), label: 'Menu')
+              BottomNavigationBarItem(icon: Icon(Icons.menu), label: 'Profile')
             ]),
       ),
     );
