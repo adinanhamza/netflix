@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/widgets.dart';
 import 'package:netflix_clone/models/content_models.dart';
 import 'package:netflix_clone/services/movieservice.dart';

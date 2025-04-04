@@ -1,71 +1,48 @@
-// widgets/bottom_nav.dart
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movieapp/controller/bottomBarprovider.dart';
+import 'package:movieapp/view/home.dart';
+import 'package:movieapp/view/searchPage.dart';
+import 'package:provider/provider.dart';
 
-class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({Key? key}) : super(key: key);
+class BottomNAvigation extends StatefulWidget {
+int intialState;
+   BottomNAvigation({super.key, required this.intialState});
 
   @override
-  _BottomNavBarState createState() => _BottomNavBarState();
+  State<BottomNAvigation> createState() => _BottomNAvigationState();
 }
 
-class _BottomNavBarState extends State<BottomNavBar> {
-  int _currentIndex = 0;
-
+class _BottomNAvigationState extends State<BottomNAvigation> {
+  final pages = [
+    HomePage(),
+   Searchpage(),
+    Center(child: Text("data"),),
+    Center(child: Text("data"),)
+  ];
+@override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<Bottombarprovider>(context,listen: false).currentIndex = widget.intialState;
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      currentIndex: _currentIndex,
-      onTap: (index) {
-        setState(() => _currentIndex = index);
-        _navigateToScreen(index, context);
-      },
-      type: BottomNavigationBarType.fixed,
-      backgroundColor: Colors.black,
-      selectedItemColor: Colors.white,
-      unselectedItemColor: Colors.grey,
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.search),
-          label: 'Search',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.video_library),
-          label: 'Coming Soon',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.download),
-          label: 'Downloads',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.menu),
-          label: 'More',
-        ),
-      ],
+    return Consumer<Bottombarprovider>(
+      builder:(context, bar, child) =>  Scaffold(
+        body: pages[bar.currentIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: bar.currentIndex,
+          onTap: (value) {
+            bar.changeIndex(value);
+          },
+          items: [
+          BottomNavigationBarItem(icon: Icon(CupertinoIcons.home,color: Colors.white,),label: 'home'),
+          BottomNavigationBarItem(icon: Icon(CupertinoIcons.search,color: Colors.white,),label: 'search'),
+          BottomNavigationBarItem(icon: Icon(CupertinoIcons.download_circle,color: Colors.white,),label: 'download'),
+          BottomNavigationBarItem(icon: Icon(CupertinoIcons.bars,color: Colors.white,),label: 'menu'),
+        ]),
+      ),
     );
-  }
-
-  void _navigateToScreen(int index, BuildContext context) {
-    switch (index) {
-      case 0:
-        Navigator.pushNamedAndRemoveUntil(
-            context, '/home', (Route<dynamic> route) => false);
-        break;
-      case 1:
-        Navigator.pushNamed(context, '/search');
-        break;
-      case 2:
-        // Coming Soon screen
-        break;
-      case 3:
-        // Downloads screen
-        break;
-      case 4:
-        // More screen
-        break;
-    }
   }
 }
