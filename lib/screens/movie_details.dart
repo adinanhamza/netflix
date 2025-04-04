@@ -1,124 +1,204 @@
-// screens/movie_detail.dart
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:netflix_clone/screens/home_screen.dart';
-import '../widgets/app_bar.dart';
+import 'package:netflix_clone/screens/widgets/moviecategory.dart';
 
-class MovieDetailScreen extends StatelessWidget {
-  final String title;
-  final String imageUrl;
-  final String description;
-  final double rating;
+class Moviedetails extends StatelessWidget {
+  String? image_path;
+  String? title;
+  String? overview;
+  String? ogrinalName;
+  String? type;
 
-  MovieDetailScreen({
-    required this.title,
-    required this.imageUrl,
-    required this.description,
-    required this.rating,
-  });
+  Moviedetails(
+      {super.key,
+      required this.type,
+      required this.title,
+      required this.image_path,
+      required this.ogrinalName,
+      required this.overview});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: CustomAppBar(),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                Image.network(
-                  imageUrl,
-                  width: double.infinity,
-                  height: 400,
-                  fit: BoxFit.cover,
-                ),
-                Positioned(
-                  bottom: 20,
-                  left: 20,
-                  right: 20,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Column(
-                        children: [
-                          Icon(Icons.add, color: Colors.white),
-                          Text('My List', style: TextStyle(color: Colors.white)),
-                        ],
-                      ),
-                      ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          // primary: Colors.white,
-                          // onPrimary: Colors.black,
-                        ),
-                        onPressed: () {},
-                        icon: Icon(Icons.play_arrow),
-                        label: Text('Play'),
-                      ),
-                      Column(
-                        children: [
-                          Icon(Icons.info_outline, color: Colors.white),
-                          Text('Info', style: TextStyle(color: Colors.white)),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+    return SafeArea(
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          automaticallyImplyLeading: true,
+          backgroundColor: Colors.transparent,
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
                 children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
+                  Container(
+                    width: double.infinity,
+                    height: 250,
+                    child: CachedNetworkImage(
+                      imageUrl: "https://image.tmdb.org/t/p/w500/$image_path",
+                      fit: BoxFit.fill,
+                      placeholder: (context, url) => Center(
+                        child: CircularProgressIndicator(),
+                      ),
                     ),
                   ),
-                  SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Text(
-                        '${rating.toStringAsFixed(1)}/10',
-                        style: TextStyle(color: Colors.green),
+                  
+              
+                  Positioned(
+                    right: 30,
+                    top: 10,
+                    child: Icon(Icons.cast,color: Colors.black,)),
+                  Positioned(
+                    bottom: 10,
+                    left: 10,
+                    child: Container(
+                      width: 80,
+                      height: 30,
+
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.black,
                       ),
-                      SizedBox(width: 10),
-                      Text(
-                        '2023',
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                      SizedBox(width: 10),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 4),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                        ),
-                        child: Text(
-                          'HD',
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    description,
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    'Cast: Chris Pratt, Zoe Saldana, Dave Bautista',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  SizedBox(height: 20),
-                  MovieRow(title: "More Like This"),
+                      child: Center(child: Text("preview",style: style(),))),
+                  )
                 ],
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Image.asset(
+                      'assests/WhatsApp_Image_2024-12-13_at_18.47.11-removebg-preview.png',
+                      width: 30,
+                    ),
+                    Text(
+                      "$type",
+                      style: style(),
+                    ),
+                  ],
+                ),
+              ),
+              Text(
+                ' $title',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  width: double.infinity,
+                  height: 50,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.play_arrow),
+                      Text(
+                        "Play",
+                        style: style(),
+                      )
+                    ],
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.red[600],
+                  ),
+                ),
+              ),
+              Text(
+                overview ?? '',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Column(
+                      children: [
+                        Icon(CupertinoIcons.check_mark),
+                        Text(
+                          "My List",
+                          style: style(),
+                        )
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Icon(CupertinoIcons.hand_thumbsup),
+                        Text(
+                          "Like",
+                          style: style(),
+                        )
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Icon(CupertinoIcons.share),
+                        Text(
+                          "Share",
+                          style: style(),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      width: 150,
+                    )
+                  ],
+                ),
+              ),
+              Divider(
+                color: Colors.grey,
+              ),
+              Text(
+                "Trailers and More",
+                style: appBarStyle(),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Stack(
+                  alignment: AlignmentDirectional.center,
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: 250,
+                      child: CachedNetworkImage(
+                        imageUrl: "https://image.tmdb.org/t/p/w500/$image_path",
+                        fit: BoxFit.fill,
+                        placeholder: (context, url) => Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.6),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.play_arrow,
+                          color: Colors.white,
+                          size: 40,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

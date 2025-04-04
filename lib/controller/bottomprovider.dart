@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class Bottombarprovider extends ChangeNotifier{
+class Bottomnavprovider extends ChangeNotifier{
    int currentIndex = 0;
 
    void changeIndex(int index){

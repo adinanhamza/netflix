@@ -2,6 +2,11 @@ import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix_clone/controller/provider.dart';
+import 'package:netflix_clone/screens/bottomnav.dart';
+import 'package:netflix_clone/screens/movie_details.dart';
+import 'package:netflix_clone/screens/movies.dart';
+import 'package:netflix_clone/screens/tvshows.dart';
+import 'package:netflix_clone/screens/widgets/moviecategory.dart';
 
 import 'package:provider/provider.dart';
 
@@ -106,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                                   image_path:
                                       movie.TrendingMovie.first.backdroppath,
                                   ogrinalName:
-                                      movie.TrendingMovie.first.original,
+                                      movie.TrendingMovie.first.orginal,
                                   overview:
                                       movie.TrendingMovie.first.overview)));
                     },
