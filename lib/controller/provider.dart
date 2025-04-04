@@ -1,90 +1,68 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:netflix_clone/models/content_models.dart';
+import 'package:netflix/model/netflixmodel.dart';
+import 'package:netflix/service/service.dart';
 import 'package:netflix_clone/services/movieservice.dart';
 
-class movieProvider extends ChangeNotifier {
-  TextEditingController serchCtrl = TextEditingController();
-  List<Moviemodel> TrendingMovie = [];
-  List<Moviemodel> popularMovie = [];
-  List<Moviemodel> topRated = [];
-  List<Moviemodel> serchList = [];
-  List<Moviemodel> tvList = [];
-  List<Moviemodel> movies = [];
+class NetflixProvider extends ChangeNotifier {
+  String imagePath = 'https://image.tmdb.org/t/p/w400/';
+  NetflixService netflix = NetflixService();
+  List<Netflixmodel> listOfData = [];
+  List<Netflixmodel> topRated = [];
+  List<Netflixmodel> upcoming = [];
+  List<Netflixmodel> tvShow = [];
+  List<Netflixmodel> search = [];
+  String? errorMessage;
+  TextEditingController searchtext = TextEditingController();
 
-  bool isLodding = false;
-  Movieservice movieServices = Movieservice();
-
-  void tvshows() async {
-    tvList = await movieServices.tvshow();
-    if (tvList.isNotEmpty) {
-      log("tv get success");
-      isLodding = true;
-    } else {
-      log("tv error");
-    }
+  void errorMessages(String error) {
+    errorMessage = error;
     notifyListeners();
   }
 
-  void movie() async {
-    movies = await movieServices.movies();
-    if (movies.isNotEmpty) {
-      log("movies get success");
-      isLodding = true;
-    } else {
-      log("movie error");
-    }
-    notifyListeners();
-  }
-
-  void popular() async {
+  Future<void> getAllData(BuildContext context) async {
     try {
-      popularMovie = await movieServices.popularmovie();
-
-      log("popular get success");
+      listOfData = await netflix.getAllNetflix();
     } catch (e) {
-      log(e.toString());
+      errorMessages('$e');
     }
+
     notifyListeners();
   }
 
-  void upcoming() async {
-    topRated = await movieServices.upcomingMovie();
-    if (topRated.isNotEmpty) {
-      log("toprated get success");
-    } else {
-      log(" toprated  error");
-    }
-    notifyListeners();
-  }
-
-  void trending() async {
-    TrendingMovie = await movieServices.trendingMovie();
-    if (TrendingMovie.isNotEmpty) {
-      log("trending get success.......");
-      isLodding = true;
-    } else {
-      log(" trending error");
-      isLodding = false;
-    }
-    notifyListeners();
-  }
-
-  void serchMovie() async {
+  Future<void> topRatedMovies(BuildContext context) async {
     try {
-      serchList = await movieServices.searchData(search: serchCtrl.text);
-      if (serchList.isNotEmpty) {
-        isLodding = true;
-      } else {
-        isLodding = false;
-      }
+      topRated = await netflix.topRated();
     } catch (e) {
-      log("$e");
+      errorMessages('$e');
     }
-    if (serchList.isNotEmpty) {
-      print("search data fetch sucess");
-    } else {
-      print("error search");
+
+    notifyListeners();
+  }
+
+  Future<void> upcomingMovies(BuildContext context) async {
+    try {
+      upcoming = await netflix.upcoming();
+    } catch (e) {
+      errorMessages('$e');
+    }
+
+    notifyListeners();
+  }
+
+  Future<void> tvshows(BuildContext context) async {
+    try {
+      tvShow = await netflix.tvshows();
+    } catch (e) {
+      errorMessages('$e');
+    }
+    notifyListeners();
+  }
+
+  Future<void> searchMovies(BuildContext context) async {
+    try {
+      search = await netflix.searchUpdate(movie: searchtext.text);
+    } catch (e) {
+      errorMessages('$e');
     }
     notifyListeners();
   }

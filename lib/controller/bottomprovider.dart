@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-class Bottomnavprovider extends ChangeNotifier{
-   int currentIndex = 0;
-
-   void changeIndex(int index){
-        currentIndex = index;
-        notifyListeners();
-   }
+class Bottomprovider extends ChangeNotifier {
+int currentindex=0;
+void onChange(int index){
+  currentindex=index;
+  notifyListeners();
+}
 }
