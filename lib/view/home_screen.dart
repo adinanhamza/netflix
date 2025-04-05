@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:netflix_clone/constants/textconstants.dart';
-import 'package:netflix_clone/controller/provider.dart';
-import 'package:netflix_clone/screens/widgets/homewidget.dart';
+import 'package:netflix_clone/viewmodel/provider.dart';
+import 'package:netflix_clone/view/widgets/homewidget.dart';
 import 'package:provider/provider.dart';
 
 class Homescreen extends StatefulWidget {
@@ -60,7 +60,7 @@ class _HomescreenState extends State<Homescreen> {
                     height: 500,
                     width: double.infinity,
                     fit: BoxFit.fitWidth,
-                    imageUrl: '${value.imagePath}${listOfdata[13].posterpath}',
+                    imageUrl: '${value.imagePath}${listOfdata[0].posterpath}',
                   ),
                   Positioned(
                     bottom: 0,

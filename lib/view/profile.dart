@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:netflix_clone/screens/widgets/whopage.dart';
+import 'package:netflix_clone/view/widgets/whopage.dart';
 
 
 class ProfilePage extends StatelessWidget {

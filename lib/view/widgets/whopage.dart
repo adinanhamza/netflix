@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icony/icony.dart';
-import 'package:netflix_clone/screens/home_screen.dart';
+import 'package:netflix_clone/view/home_screen.dart';
 
 Widget WhoContainer({
   required BuildContext context,

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 
-import 'package:netflix_clone/controller/bottomprovider.dart';
-import 'package:netflix_clone/controller/provider.dart';
-import 'package:netflix_clone/screens/splashscreen.dart';
+import 'package:netflix_clone/viewmodel/bottomprovider.dart';
+import 'package:netflix_clone/viewmodel/provider.dart';
+import 'package:netflix_clone/view/splashscreen.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
