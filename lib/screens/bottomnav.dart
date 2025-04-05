@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:netflix_clone/controller/bottomprovider.dart';
 import 'package:netflix_clone/screens/downloads.dart';
 import 'package:netflix_clone/screens/home_screen.dart';
-import 'package:netflix_clone/screens/menu.dart';
+import 'package:netflix_clone/screens/profile.dart';
 import 'package:netflix_clone/screens/search_screen.dart';
 import 'package:provider/provider.dart';
 
